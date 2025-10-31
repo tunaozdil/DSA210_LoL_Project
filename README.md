@@ -51,7 +51,7 @@ If permitted to keep the repository private, I will also analyze *average placem
 ---
 
 ### Limitations & Future Work  
-- Riot’s API policy forbids public display of augment winrates.  
+- Riot’s API policy forbids public display of augment winrates. For more information, see the official Riot API documentation: [https://developer.riotgames.com/docs/lol](https://developer.riotgames.com/docs/lol)
 - Data currently represents only my matches, limiting generalization.  
 - **If the repository remains private**, average placement and related statistics will be analyzed internally.  
 - I plan to contact friends to include their match data, expanding the dataset for broader representation.
