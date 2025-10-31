@@ -21,13 +21,24 @@ If permitted to keep the repository private, I will also analyze *average placem
   - `https://{REGION}.api.riotgames.com/lol/match/v5/matches/{matchId}`  
 - **Mode:** Arena (`queueId = 1700`)  
 - **Augment names:** Mapped from [CommunityDragon](https://raw.communitydragon.org/15.21/cdragon/arena/en_us.json).  
-- Each match includes data for **all 16 players** (8 teams of 2), expanding the dataset from ~300 matches to roughly **4,800 player entries**.
+- Each match includes anonymized data for **all 16 players** (8 teams of 2), expanding the dataset from ~300 matches to roughly **4,800 player entries**.  
+- **Data fields used:** Only non-identifying, gameplay-related data are collected and analyzed, including:  
+  - `championName` (character played)  
+  - `placement` (final team ranking, 1–8)  
+  - `kills`, `deaths`, `assists` (combat statistics)  
+  - `goldEarned`, `totalDamageDealtToChampions` etc. (performance metrics)  
+  - `playerAugment1–6` (augment IDs, converted to readable names)  
+
+No personally identifiable information (such as usernames, Riot IDs, or account identifiers) will be collected or stored.  
+All analyses will be conducted on anonymized player-level gameplay data collected from my own matches.
+Only non-identifying fields will be stored, and results will be presented in aggregate form for educational purposes.
+
 
 ---
 
 ### Data Analysis Plan  
 1. **Collection & Cleaning:**  
-   - Extract champion, augment, combat, and ranking information for all participants.  
+   - Extract anonymized champion, augment, combat, and ranking information for all participants.  
    - Convert augment IDs to readable names using CommunityDragon data.  
 
 2. **Exploratory Analysis:**  
@@ -46,20 +57,19 @@ If permitted to keep the repository private, I will also analyze *average placem
 - Frequency and percentile rankings of augments across all players.  
 - Insights into how different augments relate to champion performance metrics.  
 - Visualizations showing augment diversity and common augment combinations.  
-- *(Private-only)* Exploratory results connecting augments to final match rankings.
-
+- *(Private-only)* Exploratory results connecting augments to average match rankings for academic use only.
 ---
 
 ### Limitations & Future Work  
 - Riot’s API policy forbids public display of augment winrates. For more information, see the official Riot API documentation: [https://developer.riotgames.com/docs/lol](https://developer.riotgames.com/docs/lol)
 - Data currently represents only my matches, limiting generalization.  
-- **If the repository remains private**, average placement and related statistics will be analyzed internally.  
-- I plan to contact friends to include their match data, expanding the dataset for broader representation.
-
+- Placement and related analyses will only be calculated if the repository is set to private, to be performed solely for personal academic research and will not be shared publicly or used in any product.  
+- I plan to contact friends who play Arena (with their consent) to include their match data, expanding the dataset for broader representation.
 ---
 
 ### Ethical Statement  
 This project uses data collected via the Riot Games API under a **personal developer key** for educational, non-commercial use.  
-No private player data or match performance statistics are shared publicly.  
-All results comply with Riot’s API Terms of Service.  
+No private player information or individual performance statistics are shared publicly.  
+All public results are limited to **descriptive and frequency-based analyses** that comply with Riot’s API Terms of Service.  
+Any placement or augment performance analysis will remain private and used **exclusively for academic evaluation**.  
 Riot Games does not endorse or sponsor this project.
