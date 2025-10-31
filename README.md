@@ -5,7 +5,7 @@
 
 ### Motivation  
 Two years ago, the popular video game *League of Legends* introduced a new gamemode called **Arena**.  
-This mode added a feature called **Augments** — randomized power-ups that significantly change how a character (called a *champion*) performs during matches.  
+This mode added a feature called **Augments** — randomized power-ups that significantly change how a character (called a *champion*) performs during matches by greatly influencing champion playstyles, creating new strategies, and impacting match outcomes.  
 Each player chooses several augments per game, and there are nearly 200 different options overall.  
 The randomness and variety make Arena an interesting case for studying how random elements influence player behavior and performance.  
 
