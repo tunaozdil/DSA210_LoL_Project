@@ -1,8 +1,9 @@
 # 🎯 Arena Augment Performance & Survival Analysis
 *League of Legends: Arena Data Science Project (DSA210)*  
-**Author:** Tuna Özdil
+**Author:** Tuna Özdil 
 **Date:** November 2025  
 
+**Note.** The readme was edited after the deadline, but the raw data and the python program that operates on the code (aff.py) was pushed before the deadline.
 ---
 
 ## 🧩 Project Overview
@@ -102,35 +103,33 @@ Two **Pearson correlation** tests examined whether augment popularity aligns wit
 ## 📈 Key Visualizations
 
 ### **Augment Frequency Distribution (Log Scale)**
-Shows a steep long-tail curve — a few augments dominate most selections.
+After the top 95% of cumulative augment appearances, the remaining augments occur increasingly infrequently. To prevent skewed or noisy results caused by these rare cases, the bottom 5% of augments is removed from the dataset.
 
 ![Augment Frequency Distribution](figures/augment_frequency_distribution_95.png)
 
 ---
 
 ### **Correlation Between Frequency and Player Metrics**
-Offensive metrics (damage, ability use) rise with augment frequency.
-
+This graph shows that players tend to favor high-damage augments, reflected by a weak but statistically significant positive correlation with augment frequency, while the remaining performance metrics exhibit little to no meaningful correlation with frequency.
 ![Correlation Between Frequency and Player Metrics](figures/freq_metric_correlation.png)
 
 ---
 
-### **Augment Frequency vs Damage Output**
-Frequent augments significantly correlate with higher damage to champions.
-
+### **Augment Frequency vs Damage Output Scatter Plot**
+Displays the strongest correlation between augment frequency and any player metric—damage.
 ![Augment Frequency vs Damage Output](figures/hypothesis_freq_vs_damage.png)
 
 ---
 
 ### **Augment Frequency vs KDA**
-No meaningful correlation between augment frequency and overall KDA consistency.
+Unexpectedly, no meaningful correlation between augment frequency and overall KDA consistency.
 
 ![Augment Frequency vs KDA](figures/hypothesis_freq_vs_kda.png)
 
 ---
 
 ### **Augments by Survival/Durability**
-Derived sustain metric shows clear outliers — some augments enhance durability disproportionately.
+Derived sustain metric shows clear outliers — some augments clearly enhance durability.
 
 ![Top 20 Augments by Survival Score](figures/augment_survival_score.png)
 
@@ -141,9 +140,9 @@ Derived sustain metric shows clear outliers — some augments enhance durability
 | Aspect | Finding | Interpretation |
 |---------|----------|----------------|
 | **Frequency Distribution** | Top 80 augments cover 95% of all appearances | Arena meta favors a small subset of augments |
+| **Survival Score** | Significant augment-to-augment variance | Some augments enhance durability disproportionately |
 | **Frequency ↔ Damage** | Strong positive correlation (r = 0.33, p < 0.001) | Common augments drive offensive output |
 | **Frequency ↔ KDA** | No significant correlation | Popular augments improve raw stats, not consistency |
-| **Survival Score** | Significant augment-to-augment variance | Some augments enhance durability disproportionately |
 
 ---
 
@@ -162,23 +161,22 @@ Derived sustain metric shows clear outliers — some augments enhance durability
 - No personal identifiers or player-specific outcomes (e.g., win/loss, placement) are stored or displayed.  
 - The repository includes only **aggregated statistical summaries** and **derived metrics**.  
 - Public results comply with Riot’s API Terms of Service — no augment winrates, rankings, or individual outcomes are disclosed.  
-- Any future private analysis involving placements will remain offline and strictly for academic evaluation.
 
 > **Riot Games does not endorse or sponsor this project.**
 
 ---
 
-
-
----
-
 ## 🧩 Future Work
-- Categorize augments by **function** (offensive, defensive, utility) for deeper comparative testing.  
-- Study **augment co-occurrence patterns** to identify synergy effects.  
-- Extend dataset across more regions and patches to analyze meta shifts.  
-- *(Private only)* Integrate placement outcomes for ranking-based performance modeling.
+- Apply ML methods on the dataset
 
 ---
+All figures are automatically saved under figures/.
+
+📚 References
+
+Riot Games Developer Portal
+
+CommunityDragon Augment Dataset
 
 ## 🧰 Setup & Reproduction
 
@@ -192,11 +190,5 @@ pip install -r requirements.txt
 cd notebooks
 jupyter aff.py
 
-All figures are automatically saved under figures/.
 
-📚 References
-
-Riot Games Developer Portal
-
-CommunityDragon Augment Dataset
 
