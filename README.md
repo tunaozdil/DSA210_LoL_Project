@@ -1,6 +1,6 @@
 # 🎯 Arena Augment Performance & Survival Analysis
 *League of Legends: Arena Data Science Project (DSA210)*  
-**Author:** [Your Name]  
+**Author:** Tuna Özdil
 **Date:** November 2025  
 
 ---
