@@ -178,6 +178,8 @@ Riot Games Developer Portal
 
 CommunityDragon Augment Dataset
 
+Assistance from OpenAI’s ChatGPT 5.1 was used during development for code guidance, debugging, and README preparation.
+
 ## 🧰 Setup & Reproduction
 
 ### Requirements
