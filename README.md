@@ -1,75 +1,202 @@
-# DSA210 Project Proposal  
-**Title:** Augment Appearance Trends and Their Effects on Champion Stats in League of Legends: Arena Mode  
+# 🎯 Arena Augment Performance & Survival Analysis
+*League of Legends: Arena Data Science Project (DSA210)*  
+**Author:** [Your Name]  
+**Date:** November 2025  
 
 ---
 
-### Motivation  
-Two years ago, the popular video game *League of Legends* introduced a new gamemode called **Arena**.  
-This mode added a feature called **Augments** — randomized power-ups that significantly change how a character (called a *champion*) performs during matches by greatly influencing champion playstyles, creating new strategies, and impacting match outcomes.  
-Each player chooses several augments per game, and there are nearly 200 different options overall.  
-The randomness and variety make Arena an interesting case for studying how random elements influence player behavior and performance.  
+## 🧩 Project Overview
 
-This project will explore how often different augments appear in my matches and how they relate to measurable **champion performance statistics** such as damage dealt, survivability, and the **KDA ratio** (kills + assists ÷ deaths).  
-If permitted to keep the repository private, I will also analyze *average placement* — a player’s **final ranking in the 16-players, 8-teams match (1 = best, 8 = lowest)** — for additional insight.
+This project explores **League of Legends: Arena mode**, introduced in 2023, where each player selects randomized power-ups called **Augments** during matches.  
+Augments can drastically alter champion playstyles, strategies, and match outcomes — making them a rich subject for quantitative analysis.
 
----
+The study investigates how **augment appearance frequency** relates to **player performance metrics**, such as:
+- **KDA ratio** (kills + assists ÷ deaths)
+- **Total damage dealt to champions**
+- **Durability and survivability** (a derived *sustain score* based on healing and damage mitigation)
 
-### Data Source  
-- **Collected by:** Myself using a *personal Riot Games API key* (developer key) to collect data from my own match history.  
-- **Endpoints:**  
-  - `https://{REGION}.api.riotgames.com/lol/match/v5/matches/by-puuid`  
-  - `https://{REGION}.api.riotgames.com/lol/match/v5/matches/{matchId}`  
-- **Mode:** Arena (`queueId = 1700`)  
-- **Augment names:** Mapped from [CommunityDragon](https://raw.communitydragon.org/15.21/cdragon/arena/en_us.json).  
-- Each match includes anonymized data for **all 16 players** (8 teams of 2), expanding the dataset from ~300 matches to roughly **4,800 player entries**.  
-- **Data fields used:** Only non-identifying, gameplay-related data are collected and analyzed, including:  
-  - `championName` (character played)  
-  - `placement` (final team ranking, 1–8)  
-  - `kills`, `deaths`, `assists` (combat statistics)  
-  - `goldEarned`, `totalDamageDealtToChampions` etc. (performance metrics)  
-  - `playerAugment1–6` (augment IDs, converted to readable names)  
-
-No personally identifiable information (such as usernames, Riot IDs, or account identifiers) will be collected or stored.  
-All analyses will be conducted on anonymized player-level gameplay data collected from my own matches.
-Only non-identifying fields will be stored, and results will be presented in aggregate form for educational purposes.
-
+The dataset represents matches from multiple accounts (myself and consenting friends), providing thousands of Arena match records for analysis.
 
 ---
 
-### Data Analysis Plan  
-1. **Collection & Cleaning:**  
-   - Extract anonymized champion, augment, combat, and ranking information for all participants.  
-   - Convert augment IDs to readable names using CommunityDragon data.  
+## 🧠 Motivation
 
-2. **Exploratory Analysis:**  
-   - Measure how frequently each augment appears across all players.  
-   - Visualize the percentile distribution of augment appearances.  
-   - Analyze relationships between augments and **champion statistics** (KDA, gold earned, damage dealt, etc.).  
-   - *(Private-only)* Compute **average placement** (final match ranking) per augment for internal analysis.  
+Arena is a 2v2v2v2 elimination mode where randomness and adaptation define success.  
+Because augments are randomly offered, players often speculate whether certain augments are objectively stronger or simply more common.  
 
-3. **Machine Learning:**  
-   - Use simple, interpretable models to explore how augments relate to champion performance metrics.  
-   - Classify whether a player achieves above-average KDA or damage based on their augment choices.  
+This project aims to **quantify those relationships** by combining statistical testing and exploratory visualization to identify:
+- Which augments appear most frequently,
+- Whether common augments improve performance,
+- And how sustain-focused augments differ statistically from offensive ones.
 
 ---
 
-### Expected Findings  
-- Frequency and percentile rankings of augments across all players.  
-- Insights into how different augments relate to champion performance metrics.  
-- Visualizations showing augment diversity and common augment combinations.  
-- *(Private-only)* Exploratory results connecting augments to average match rankings for academic use only.
+## 📚 Data Source
+
+### **Collection**
+All data were gathered **personally** through the official [Riot Games API](https://developer.riotgames.com/docs/lol) under a **personal developer key** for educational use.
+
+- **API Endpoints Used:**
+  - `GET /lol/match/v5/matches/by-puuid/{puuid}/ids`
+  - `GET /lol/match/v5/matches/{matchId}`
+- **Game Mode:** Arena (`queueId = 1700`)
+- **Augment Names:** Mapped via [CommunityDragon JSON](https://raw.communitydragon.org/15.23/cdragon/arena/en_us.json)
+
+### **Scope**
+Each Arena match includes **16 anonymized player entries** (8 teams of 2).  
+Across ~3,000 matches from multiple regions (TR1, NA1, EUW), the dataset expands to **≈ 48,000 player-level entries**.
+
+### **Fields Used**
+Only non-identifying, gameplay-relevant fields:
+- `championName`, `kills`, `deaths`, `assists`
+- `goldEarned`, `totalDamageDealtToChampions`, `damageSelfMitigated`
+- `totalHeal`, `teamDamagePercentage`, `abilityUses`
+- `playerAugment1–6` (converted to readable names)
+
+> ⚠️ No personally identifiable information (PUUIDs, Riot IDs, usernames, etc.) is stored or shared.  
+> Data is anonymized and aggregated before analysis.
+
 ---
 
-### Limitations & Future Work  
-- Riot’s API policy forbids public display of augment winrates. For more information, see the official Riot API documentation: [https://developer.riotgames.com/docs/lol](https://developer.riotgames.com/docs/lol)
-- Data currently represents only my matches, limiting generalization.  
-- Placement and related analyses will only be calculated if the repository is set to private, to be performed solely for personal academic research and will not be shared publicly or used in any product.  
-- I plan to contact friends who play Arena (with their consent) to include their match data, expanding the dataset for broader representation.
+## 📊 Data Cleaning and Preparation
+
+- Expanded augment arrays into one record per augment (`explode` transformation).
+- Mapped augment IDs → names using the CommunityDragon dataset.
+- Dropped incomplete rows and invalid augment entries.
+- Filtered out rare augments that together represented less than **5% of total appearances** (noise reduction).
+- Combined datasets from three accounts into a unified CSV under `data/players/`.
+
 ---
 
-### Ethical Statement  
-This project uses data collected via the Riot Games API under a **personal developer key** for educational, non-commercial use.  
-No private player information or individual performance statistics are shared publicly.  
-All public results are limited to **descriptive and frequency-based analyses** that comply with Riot’s API Terms of Service.  
-Any placement or augment performance analysis will remain private and used **exclusively for academic evaluation**.  
-Riot Games does not endorse or sponsor this project.
+## 🔬 Analysis Methodology
+
+The analysis proceeds in three stages:
+
+### **1️⃣ Exploratory Data Analysis (EDA)**
+- **Augment frequency distribution** with cumulative coverage curve  
+  → identifies dominant and rare augments.  
+- **Correlation sweep** between augment frequency and 12 gameplay metrics.  
+- **Regression visualization** for frequency vs. key stats (KDA, damage, sustain).  
+
+### **2️⃣ Hypothesis Testing (Survival/Durability)**
+Derived a custom **survival score**:
+
+survival_score = (DamageTaken + DamageSelfMitigated + 0.5 × TotalHeal) / (Deaths + 1)
+
+
+**H₀:** All augments yield equal survival performance.  
+**H₁:** At least one augment significantly differs.  
+
+A one-way **ANOVA test** confirmed statistically significant survival differences among augments (p < 0.001).
+
+### **3️⃣ Hypothesis Testing (Frequency–Performance Relations)**
+Two **Pearson correlation** tests examined whether augment popularity aligns with player performance.
+
+| Hypothesis | Variable Relationship | Result | p-value | Conclusion |
+|-------------|-----------------------|---------|----------|-------------|
+| **H1** | Frequency ↔ Damage | r = **0.33** | 2.4e-05 | ✅ Significant positive correlation |
+| **H2** | Frequency ↔ KDA | r = **-0.07** | 0.37 | ❌ No significant relationship |
+
+---
+
+## 📈 Key Visualizations
+
+### **Augment Frequency Distribution (Log Scale)**
+Shows a steep long-tail curve — a few augments dominate most selections.
+
+![Augment Frequency Distribution](figures/augment_frequency_distribution_95.png)
+
+---
+
+### **Correlation Between Frequency and Player Metrics**
+Offensive metrics (damage, ability use) rise with augment frequency.
+
+![Correlation Between Frequency and Player Metrics](figures/freq_metric_correlation.png)
+
+---
+
+### **Augment Frequency vs Damage Output**
+Frequent augments significantly correlate with higher damage to champions.
+
+![Augment Frequency vs Damage Output](figures/hypothesis_freq_vs_damage.png)
+
+---
+
+### **Augment Frequency vs KDA**
+No meaningful correlation between augment frequency and overall KDA consistency.
+
+![Augment Frequency vs KDA](figures/hypothesis_freq_vs_kda.png)
+
+---
+
+### **Augments by Survival/Durability**
+Derived sustain metric shows clear outliers — some augments enhance durability disproportionately.
+
+![Top 20 Augments by Survival Score](figures/augment_survival_score.png)
+
+---
+
+## 🧾 Summary of Findings
+
+| Aspect | Finding | Interpretation |
+|---------|----------|----------------|
+| **Frequency Distribution** | Top 80 augments cover 95% of all appearances | Arena meta favors a small subset of augments |
+| **Frequency ↔ Damage** | Strong positive correlation (r = 0.33, p < 0.001) | Common augments drive offensive output |
+| **Frequency ↔ KDA** | No significant correlation | Popular augments improve raw stats, not consistency |
+| **Survival Score** | Significant augment-to-augment variance | Some augments enhance durability disproportionately |
+
+---
+
+## 🧠 Conclusions
+
+- **Frequent augments ≠ balanced augments:** Offensive augments dominate both selection rate and output.  
+- **Durability augments are distinct:** Though rarer, they show statistically significant variance in survival contribution.  
+- **KDA unaffected by popularity:** Common augments boost raw output but not strategic efficiency.  
+- **Arena’s meta skews toward offense, not sustain.**
+
+---
+
+## ⚖️ Ethical and Legal Compliance
+
+- All data collected via the **official Riot Games API** using a personal *developer key* for academic, non-commercial use.  
+- No personal identifiers or player-specific outcomes (e.g., win/loss, placement) are stored or displayed.  
+- The repository includes only **aggregated statistical summaries** and **derived metrics**.  
+- Public results comply with Riot’s API Terms of Service — no augment winrates, rankings, or individual outcomes are disclosed.  
+- Any future private analysis involving placements will remain offline and strictly for academic evaluation.
+
+> **Riot Games does not endorse or sponsor this project.**
+
+---
+
+
+
+---
+
+## 🧩 Future Work
+- Categorize augments by **function** (offensive, defensive, utility) for deeper comparative testing.  
+- Study **augment co-occurrence patterns** to identify synergy effects.  
+- Extend dataset across more regions and patches to analyze meta shifts.  
+- *(Private only)* Integrate placement outcomes for ranking-based performance modeling.
+
+---
+
+## 🧰 Setup & Reproduction
+
+### Requirements
+- Python ≥ 3.10  
+- Packages: `pandas`, `numpy`, `seaborn`, `matplotlib`, `scipy`, `requests`
+
+### Run Instructions
+```bash
+pip install -r requirements.txt
+cd notebooks
+jupyter aff.py
+
+All figures are automatically saved under figures/.
+
+📚 References
+
+Riot Games Developer Portal
+
+CommunityDragon Augment Dataset
+
