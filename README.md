@@ -75,7 +75,7 @@ The analysis proceeds in three stages:
 
 ### **1️⃣ Exploratory Data Analysis (EDA)**
 - **Augment frequency distribution** with cumulative coverage curve  
-  → identifies dominant and rare augments.  
+  → identifies frequency of augment preferences.  
 - **Correlation sweep** between augment frequency and 12 gameplay metrics.  
 - **Regression visualization** for frequency vs. key stats (KDA, damage, sustain).  
 
@@ -139,7 +139,7 @@ Derived sustain metric shows clear outliers — some augments clearly enhance du
 
 | Aspect | Finding | Interpretation |
 |---------|----------|----------------|
-| **Frequency Distribution** | Top 157 augments cover 95% of all appearances | Arena meta favors a small subset of augments |
+| **Frequency Distribution** | Top 157 augments cover 95% of all appearances | Arena meta favors a wide range of augments |
 | **Survival Score** | Significant augment-to-augment variance | Some augments enhance durability disproportionately |
 | **Frequency ↔ Damage** | Strong positive correlation (r = 0.33, p < 0.001) | Common augments drive offensive output |
 | **Frequency ↔ KDA** | No significant correlation | Popular augments improve raw stats, not consistency |
