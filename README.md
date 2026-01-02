@@ -332,10 +332,15 @@ Used to improve clarity, structure, and tone of the README while preserving auth
 
 ### Environment
 - Python ≥ 3.10  
-- Virtual environment recommended (`venv`)
-- Development environment: VS Code (cell-by-cell execution)
+- Development environment: VS Code  
+- Execution format: standard Python scripts (`.py`)
+
+---
 
 ### Required Packages
+
+The analysis relies on the following Python libraries:
+
 - `pandas`
 - `numpy`
 - `matplotlib`
@@ -345,6 +350,7 @@ Used to improve clarity, structure, and tone of the README while preserving auth
 - `requests`
 
 Install dependencies using:
+
 ```bash
 pip install -r requirements.txt
 

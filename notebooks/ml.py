@@ -108,20 +108,17 @@ print(f"Final model: k={k}, silhouette={sil:.3f}")
 
 
 # %%
+df_plot = augment_profile.copy()
+df_plot["pc1"] = X_pca[:, 0]
+df_plot["pc2"] = X_pca[:, 1]
+df_plot["cluster"] = labels
+
 cluster_summary = df_plot.groupby("cluster")[features].mean()
-cluster_summary["n_augments"] = df_plot["cluster"].value_counts().sort_index()
-
-cluster_summary
-
-
-# %%
-loadings = pd.DataFrame(
-    pca.components_,
-    columns=features,
-    index=["PC1", "PC2"]
+cluster_summary["n_augments"] = (
+    df_plot["cluster"].value_counts().sort_index()
 )
 
-loadings
+cluster_summary
 
 
 # %%
