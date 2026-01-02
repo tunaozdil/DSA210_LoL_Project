@@ -68,6 +68,24 @@ Only non-identifying, gameplay-relevant fields:
 - Combined datasets from three accounts into a unified CSV under `data/players/`.
 
 ---
+### 📄 Example Data Records
+
+To illustrate the structure of the aggregated dataset (`arena_all.csv`), a simplified excerpt is shown below:
+
+| match_id | player_index | champion | subteamId | kills | deaths | assists | kda | goldEarned | champLevel | totalDamageDealtToChampions | totalDamageTaken | totalHeal | damageSelfMitigated | teamDamagePercentage | damageTakenOnTeamPercentage | abilityUses | skillshotsHit | skillshotsDodged | augment_id | gameDuration | augment_name | rarity |
+|---------|--------------|----------|-----------|-------|--------|---------|-----|------------|------------|-----------------------------|------------------|-----------|----------------------|----------------------|------------------------------|--------------|----------------|------------------|------------|--------------|---------------|--------|
+| TR1_123456789 | 4 | TahmKench | 6 | 2 | 8 | 5 | 0.88 | 9500 | 15 | 16278 | 36158 | 15240 | 81595 | 0.1105 | 0.1406 | 119 | 24 | 105 | 72 | 1454 | Searing Dawn | 1.0 |
+| TR1_123456789 | 5 | Leona | 6 | 5 | 7 | 1 | 0.86 | 12461 | 15 | 24852 | 51752 | 14619 | 93826 | 0.1687 | 0.2012 | 251 | 22 | 78 | 237 | 1454 | Transmute: Gold | 0.0 |
+
+Each row represents a **single augment selection** by a player in an Arena match.  
+Player-level performance metrics are repeated across rows when multiple augments are selected in the same match.
+
+This exploded augment representation enables augment-centric aggregation and outcome-based analysis across thousands of matches.
+
+
+
+
+---
 
 ## 🔬 Analysis Methodology
 
@@ -310,17 +328,26 @@ Applied axis-centering and symmetric scaling techniques to improve visualization
 - Output:
 Used to improve clarity, structure, and tone of the README while preserving author-written content and conclusions.
 
-## 🧰 Setup & Reproduction
+## 🧰 Setup & Reproducibility
 
-### Requirements
+### Environment
 - Python ≥ 3.10  
-- Packages: `pandas`, `numpy`, `seaborn`, `matplotlib`, `scipy`, `requests`
+- Virtual environment recommended (`venv`)
+- Development environment: VS Code (cell-by-cell execution)
 
-### Run Instructions
+### Required Packages
+- `pandas`
+- `numpy`
+- `matplotlib`
+- `seaborn`
+- `scipy`
+- `scikit-learn`
+- `requests`
+
+Install dependencies using:
 ```bash
 pip install -r requirements.txt
-cd notebooks
-jupyter aff.py
+
 
 
 
