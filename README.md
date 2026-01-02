@@ -148,7 +148,7 @@ Derived sustain metric shows clear outliers — some augments clearly enhance du
 
 ## 🧠 Conclusions
 
-- **Frequent augments ≠ balanced augments:** Offensive augments dominate both selection rate and output.  
+- **Frequent augments ≠ balanced augments:** Frequently selected augments emphasize offensive output, while survivability-oriented augments exhibit distinct outcome profiles.
 - **Durability augments are distinct:** Though rarer, they show statistically significant variance in survival contribution.  
 - **KDA unaffected by popularity:** Common augments boost raw output but not strategic efficiency.  
 - **Arena’s meta skews toward offense, not sustain.**
@@ -254,25 +254,28 @@ The table below summarizes average outcome metrics for each cluster:
 | 1 | 39,930 | 20,952 | 2.68 | 48 |
 | 2 | 12,101 | 4,938 | 0.75 | 1 |
 
-Clusters 0 and 1 correspond to the two dominant archetypes discussed above, while Cluster 2 represents a single extreme-risk augment with unusually low survivability and delayed payoff.
+Clusters 0 (offensive-focused) and 1 (survivability-focused) correspond to the two dominant archetypes discussed above. Although their average damage output is comparable, Cluster 1 exhibits substantially higher survivability, as reflected in the aggregated outcome metrics. Cluster 2 represents the single extreme-risk augment characterized by unusually low survivability and a delayed payoff.
 
-
----
-
-### 🧠 Interpretation
-
-The ML results refine and contextualize the EDA findings:
-
-- EDA showed that players preferentially select high-damage augments, as augment frequency correlates positively with damage output.  
-- ML reveals that among commonly used augments, damage output is relatively homogeneous, while survivability sharply differentiates strategic behavior.
-
-This indicates that popular augments do not form a single offensive class; instead, similar damage outcomes are achieved through distinct mechanisms—direct offense versus prolonged fight survivability.
 
 ---
 
 ### 🧾 ML Summary
 
 Robustness-tested unsupervised clustering shows that Arena augment archetypes are primarily distinguished by survivability and outcome consistency rather than raw damage output or popularity.
+
+---
+
+# 🧠 EDA vs ML Interpretation
+
+The machine learning results refine and contextualize the exploratory findings by revealing structure that is not visible through pairwise analysis alone.
+
+Exploratory Data Analysis showed that players preferentially select high-damage augments, as evidenced by a statistically significant positive correlation between augment frequency and average damage output. This initially suggests that the Arena meta is primarily driven by offensive optimization.
+
+However, the outcome-based clustering reveals a more nuanced picture. Among commonly selected augments, average damage output is relatively homogeneous across clusters, while survivability and outcome consistency emerge as the primary axes of differentiation. In other words, augments that appear equally “offensive” in terms of damage can lead to fundamentally different combat dynamics depending on whether damage is achieved through burst-oriented play or through prolonged engagement enabled by higher durability.
+
+This indicates that popular augments do not form a single offensive class. Instead, similar damage outcomes are achieved through distinct strategic mechanisms: direct offensive pressure versus sustained survivability and fight longevity. The latter is also associated with higher average KDA, suggesting that survivability-focused augments improve consistency and reduce risk rather than increasing raw lethality.
+
+Taken together, these results suggest that player preferences in Arena reflect not only a pursuit of damage, but also an implicit trade-off between risk and consistency, which is not captured by frequency–damage relationships alone.
 
 ---
 
