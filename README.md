@@ -173,7 +173,7 @@ The objective of the ML analysis is to determine whether Arena augments naturall
 Each augment was represented by an aggregated outcome profile computed across all of its appearances:
 
 - Mean damage dealt to champions  
-- Mean survivability score  
+- Mean survivability score
 - Mean KDA  
 
 These features capture what an augment achieves in practice, rather than how often it appears or how volatile its outcomes are.  
@@ -188,7 +188,7 @@ All features were standardized and projected into two dimensions using **Princip
 - **PC1** is dominated by survivability and KDA, capturing outcome consistency and fight longevity.  
 - **PC2** primarily reflects damage-oriented performance.  
 
-Together, the first two principal components explain approximately **64% of the total variance**.
+Together, the first two principal components explain approximately **91.8% of the total variance**.
 
 ---
 
@@ -197,7 +197,18 @@ Together, the first two principal components explain approximately **64% of the 
 K-means clustering was applied in the standardized feature space.  
 Model selection was guided by silhouette analysis, with **k = 3** providing the best balance between separation and interpretability.
 
-One cluster consisted of a single **extreme-risk augment** characterized by very low survivability and delayed payoff. This augment represents a mechanically distinct design rather than a common strategic archetype.
+One cluster consisted of a single extreme-risk augment, **Sacrifice**, which reduces player health by 50% for seven rounds in exchange for a delayed payoff at the end of the seventh round. This augment represents a mechanically distinct design rather than a common strategic archetype.
+
+---
+### 📊 Model Diagnostics and Cluster Summary
+
+The final clustering configuration (k = 3) achieved strong separation relative to alternative feature sets, as evaluated using PCA variance coverage and silhouette analysis.
+
+- **Explained variance (PC1, PC2):** 0.566, 0.352  
+- **Total variance explained:** 91.8%  
+- **Silhouette score (k = 3):** 0.420  
+
+These values indicate that the reduced two-dimensional representation preserves most of the outcome-level structure, and that the resulting clusters exhibit meaningful separation.
 
 ---
 
@@ -231,6 +242,20 @@ Although these archetypes achieve comparable average damage output, they differ 
 - Damage distributions overlap strongly across archetypes.  
 - Survivability-focused augments exhibit significantly higher survivability scores.  
 - Higher survivability also corresponds to higher average KDA, indicating greater consistency rather than increased lethality.
+
+---
+### 📋 Outcome-Level Cluster Characteristics
+
+The table below summarizes average outcome metrics for each cluster:
+
+| Cluster | Mean Damage | Mean Survivability | Mean KDA | # Augments |
+|--------:|------------:|-------------------:|---------:|-----------:|
+| 0 | 41,482 | 12,860 | 2.34 | 108 |
+| 1 | 39,930 | 20,952 | 2.68 | 48 |
+| 2 | 12,101 | 4,938 | 0.75 | 1 |
+
+Clusters 0 and 1 correspond to the two dominant archetypes discussed above, while Cluster 2 represents a single extreme-risk augment with unusually low survivability and delayed payoff.
+
 
 ---
 
@@ -271,7 +296,16 @@ Riot Games Developer Portal
 
 CommunityDragon Augment Dataset
 
-Assistance from OpenAI’s ChatGPT 5.1 was used during development for code guidance, debugging, and README preparation.
+Assistance from OpenAI’s ChatGPT 5.1 was used during development for code guidance, debugging, and README preparation. Some example prompts used, with answers:
+- Prompt:
+“My PCA plot has the origin off-center even though the data is standardized. How can I fix this?”
+- Output:
+Applied axis-centering and symmetric scaling techniques to improve visualization clarity without altering results.
+- Prompt:
+“Rewrite this ML section to be suitable for an academic README.”
+
+- Output:
+Used to improve clarity, structure, and tone of the README while preserving author-written content and conclusions.
 
 ## 🧰 Setup & Reproduction
 
