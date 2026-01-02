@@ -154,7 +154,9 @@ Derived sustain metric shows clear outliers — some augments clearly enhance du
 - **Arena’s meta skews toward offense, not sustain.**
 
 ---
-## 🤖 Machine Learning: Outcome-Based Augment Archetypes
+
+
+# 🤖 Machine Learning: Outcome-Based Augment Archetypes
 
 While EDA and hypothesis testing focused on pairwise relationships (e.g., frequency vs. damage), these approaches do not capture how multiple performance dimensions jointly characterize augment behavior. To address this limitation, an unsupervised learning approach was applied to identify higher-level **augment archetypes** based on outcome-level performance.
 
@@ -174,7 +176,7 @@ Each augment was represented by an aggregated outcome profile computed across al
 - Mean survivability score  
 - Mean KDA  
 
-These features reflect what an augment achieves in practice, rather than how often it appears or how volatile its outcomes are.  
+These features capture what an augment achieves in practice, rather than how often it appears or how volatile its outcomes are.  
 Augments in the bottom 5% of total appearances were excluded to reduce noise from rare or highly situational cases.
 
 ---
@@ -195,20 +197,30 @@ Together, the first two principal components explain approximately **64% of the 
 K-means clustering was applied in the standardized feature space.  
 Model selection was guided by silhouette analysis, with **k = 3** providing the best balance between separation and interpretability.
 
-One cluster consisted of a single **extreme-risk augment** characterized by very low survivability and delayed payoff. This outlier was retained in quantitative summaries but omitted from visualizations for clarity.
+One cluster consisted of a single **extreme-risk augment** characterized by very low survivability and delayed payoff. This augment represents a mechanically distinct design rather than a common strategic archetype.
 
 ---
 
-### 📊 PCA Visualization of Augment Archetypes
+### 📊 PCA Visualization (Including Extreme-Risk Outlier)
+
+![PCA of Outcome-Based Augment Clusters with Outlier](figures/pca_outcome_clusters_with_outlier.png)
+
+When all clusters are visualized together, the extreme-risk augment dominates the scale of the projection, compressing the remaining structure and obscuring the relationships between commonly used augments.
+
+For this reason, the outlier is retained in quantitative summaries but omitted from the primary visualization below to improve interpretability.
+
+---
+
+### 📊 PCA Visualization of Dominant Augment Archetypes
 
 ![PCA of Outcome-Based Augment Clusters](figures/pca_outcome_clusters.png)
 
-Two dominant archetypes emerge:
+Two dominant archetypes emerge among commonly selected augments:
 
 - **Offensive-focused augments**  
 - **Survivability-focused augments**
 
-Although these archetypes achieve comparable average damage output, they differ substantially in survivability and consistency.
+Although these archetypes achieve comparable average damage output, they differ substantially in survivability and outcome consistency.
 
 ---
 
@@ -226,10 +238,10 @@ Although these archetypes achieve comparable average damage output, they differ 
 
 The ML results refine and contextualize the EDA findings:
 
-- EDA showed that players preferentially select high-damage augments, as augment frequency correlates positively with damage output.
+- EDA showed that players preferentially select high-damage augments, as augment frequency correlates positively with damage output.  
 - ML reveals that among commonly used augments, damage output is relatively homogeneous, while survivability sharply differentiates strategic behavior.
 
-This suggests that popular augments do not form a single offensive class; instead, similar damage outcomes are achieved through distinct mechanisms—direct offense versus prolonged fight survivability.
+This indicates that popular augments do not form a single offensive class; instead, similar damage outcomes are achieved through distinct mechanisms—direct offense versus prolonged fight survivability.
 
 ---
 
@@ -250,13 +262,10 @@ Robustness-tested unsupervised clustering shows that Arena augment archetypes ar
 
 ---
 
-## 🧩 Future Work
-- Apply ML methods on the dataset
-
+## 🧩 Figures
+- All figures are automatically saved under figures/.
 ---
-All figures are automatically saved under figures/.
-
-📚 References
+## 📚 References
 
 Riot Games Developer Portal
 
