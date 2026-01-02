@@ -154,6 +154,90 @@ Derived sustain metric shows clear outliers — some augments clearly enhance du
 - **Arena’s meta skews toward offense, not sustain.**
 
 ---
+## 🤖 Machine Learning: Outcome-Based Augment Archetypes
+
+While EDA and hypothesis testing focused on pairwise relationships (e.g., frequency vs. damage), these approaches do not capture how multiple performance dimensions jointly characterize augment behavior. To address this limitation, an unsupervised learning approach was applied to identify higher-level **augment archetypes** based on outcome-level performance.
+
+---
+
+### 🎯 ML Objective
+
+The objective of the ML analysis is to determine whether Arena augments naturally group into distinct behavioral categories when considered across multiple performance dimensions simultaneously, without imposing predefined labels such as “offensive” or “defensive.”
+
+---
+
+### 🧩 Feature Construction
+
+Each augment was represented by an aggregated outcome profile computed across all of its appearances:
+
+- Mean damage dealt to champions  
+- Mean survivability score  
+- Mean KDA  
+
+These features reflect what an augment achieves in practice, rather than how often it appears or how volatile its outcomes are.  
+Augments in the bottom 5% of total appearances were excluded to reduce noise from rare or highly situational cases.
+
+---
+
+### 📐 Dimensionality Reduction
+
+All features were standardized and projected into two dimensions using **Principal Component Analysis (PCA)** for visualization.
+
+- **PC1** is dominated by survivability and KDA, capturing outcome consistency and fight longevity.  
+- **PC2** primarily reflects damage-oriented performance.  
+
+Together, the first two principal components explain approximately **64% of the total variance**.
+
+---
+
+### 🔍 Clustering Method
+
+K-means clustering was applied in the standardized feature space.  
+Model selection was guided by silhouette analysis, with **k = 3** providing the best balance between separation and interpretability.
+
+One cluster consisted of a single **extreme-risk augment** characterized by very low survivability and delayed payoff. This outlier was retained in quantitative summaries but omitted from visualizations for clarity.
+
+---
+
+### 📊 PCA Visualization of Augment Archetypes
+
+![PCA of Outcome-Based Augment Clusters](figures/pca_outcome_clusters.png)
+
+Two dominant archetypes emerge:
+
+- **Offensive-focused augments**  
+- **Survivability-focused augments**
+
+Although these archetypes achieve comparable average damage output, they differ substantially in survivability and consistency.
+
+---
+
+### 📦 Outcome Distributions by Archetype
+
+![Outcome Distributions by Augment Archetype](figures/augment_outcome_distributions.png)
+
+- Damage distributions overlap strongly across archetypes.  
+- Survivability-focused augments exhibit significantly higher survivability scores.  
+- Higher survivability also corresponds to higher average KDA, indicating greater consistency rather than increased lethality.
+
+---
+
+### 🧠 Interpretation
+
+The ML results refine and contextualize the EDA findings:
+
+- EDA showed that players preferentially select high-damage augments, as augment frequency correlates positively with damage output.
+- ML reveals that among commonly used augments, damage output is relatively homogeneous, while survivability sharply differentiates strategic behavior.
+
+This suggests that popular augments do not form a single offensive class; instead, similar damage outcomes are achieved through distinct mechanisms—direct offense versus prolonged fight survivability.
+
+---
+
+### 🧾 ML Summary
+
+Robustness-tested unsupervised clustering shows that Arena augment archetypes are primarily distinguished by survivability and outcome consistency rather than raw damage output or popularity.
+
+---
 
 ## ⚖️ Ethical and Legal Compliance
 
