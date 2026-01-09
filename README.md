@@ -3,7 +3,6 @@
 **Author:** Tuna Özdil 
 **Date:** November 2025  
 
-**Note.** The readme was edited after the deadline, but the raw data and the python program that operates on the code (aff.py) was pushed before the deadline.
 ---
 
 ## 🧩 Project Overview
@@ -56,6 +55,11 @@ Only non-identifying, gameplay-relevant fields:
 
 > ⚠️ No personally identifiable information (PUUIDs, Riot IDs, usernames, etc.) is stored or shared.  
 > Data is anonymized and aggregated before analysis.
+
+### 🔄 Data Enrichment
+
+The raw Riot Games API match data was enriched through multiple derived and aggregated features. Player-level event logs were transformed into augment-centric analytical units by computing derived performance metrics (e.g., KDA and a custom survival score), aggregating outcomes across thousands of augment appearances, and constructing outcome-level representations for unsupervised learning. This enrichment step converts raw gameplay logs into higher-level analytical features suitable for statistical testing and machine learning.
+
 
 ---
 
@@ -297,6 +301,23 @@ Taken together, these results suggest that player preferences in Arena reflect n
 
 ---
 
+## ⚠️ Limitations and Future Work
+
+### Limitations
+
+- **Limited player pool:** The dataset consists of matches from myself and a small group of consenting friends, which may introduce selection bias and limit generalizability across the full Arena player population.
+- **No outcome labels:** Match outcomes (win/loss, placement) are intentionally excluded to comply with Riot Games API Terms of Service, restricting supervised learning approaches.
+- **Champion–augment confounding:** Augment performance is partially confounded with champion choice, as certain champions naturally synergize better with specific augments.
+- **Derived survivability metric:** The survival score is a constructed proxy combining multiple defensive statistics and does not represent an official or ground-truth measure of survivability.
+
+### Future Work
+
+- Incorporate **champion–augment interaction analysis** to disentangle champion-specific effects from augment impact.
+- Analyze **temporal meta shifts** by grouping matches across different Arena patches.
+- Extend the dataset using a **larger and more diverse player pool** to improve external validity.
+- Apply **supervised learning methods** if outcome labels become permissible in future API releases.
+
+---
 ## ⚖️ Ethical and Legal Compliance
 
 - All data collected via the **official Riot Games API** using a personal *developer key* for academic, non-commercial use.  
